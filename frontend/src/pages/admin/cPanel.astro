@@ -1,0 +1,149 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+let books = [
+  { id: 1, title: "El Principito", author: "Antoine de Saint-Exupéry" },
+  { id: 2, title: "Don Quijote", author: "Miguel de Cervantes" }
+];
+---
+
+<!-- <MainLayout title="Admin Panel"> -->
+<Layout title="admin">
+<style>
+  .panel {
+    display: flex;
+    gap: 40px;
+  }
+
+  .form-section, .table-section {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  }
+
+  .form-section {
+    width: 35%;
+  }
+
+  .table-section {
+    width: 65%;
+  }
+
+  h2 {
+    margin-bottom: 20px;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+  }
+
+  input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+
+  button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+  }
+
+  .btn-primary {
+    background: #2563eb;
+    color: white;
+  }
+
+  .btn-danger {
+    background: #dc2626;
+    color: white;
+  }
+
+  .btn-warning {
+    background: #f59e0b;
+    color: white;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  table th, table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+  }
+
+  table th {
+    background: #f3f4f6;
+  }
+
+  .actions button {
+    margin-right: 5px;
+  }
+</style>
+
+<div class="panel">
+
+  <!-- LADO IZQUIERDO: FORMULARIO -->
+  <div class="form-section">
+    <h2>Gestionar Book</h2>
+
+    <form>
+      <div class="form-group">
+        <label>Título</label>
+        <input type="text" placeholder="Nombre del libro" />
+      </div>
+
+      <div class="form-group">
+        <label>Autor</label>
+        <input type="text" placeholder="Autor del libro" />
+      </div>
+
+      <button type="submit" class="btn-primary">Guardar</button>
+    </form>
+  </div>
+
+  <!-- LADO DERECHO: TABLA -->
+  <div class="table-section">
+    <h2>Lista de Books</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Título</th>
+          <th>Autor</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {books.map(book => (
+          <tr>
+            <td>{book.id}</td>
+            <td>{book.title}</td>
+            <td>{book.author}</td>
+            <td class="actions">
+              <button class="btn-warning">Editar</button>
+              <button class="btn-danger">Eliminar</button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+</Layout>
