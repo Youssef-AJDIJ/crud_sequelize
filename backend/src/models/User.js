@@ -40,16 +40,16 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: {
           msg: "La contraseña es obligatoria"
         },
-        isStrongPassword(value) {
-          const regex =
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#_-])[A-Za-z\d@$!%*?&.#_-]{8,}$/;
+        // isStrongPassword(value) {
+        //   const regex =
+        //     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#_-])[A-Za-z\d@$!%*?&.#_-]{8,}$/;
 
-          if (!regex.test(value)) {
-            throw new Error(
-              "La contraseña debe tener mínimo 8 caracteres, mayúscula, minúscula, número y símbolo"
-            );
-          }
-        }
+        //   if (!regex.test(value)) {
+        //     throw new Error(
+        //       "La contraseña debe tener mínimo 8 caracteres, mayúscula, minúscula, número y símbolo"
+        //     );
+        //   }
+        // }
       }
     }
 

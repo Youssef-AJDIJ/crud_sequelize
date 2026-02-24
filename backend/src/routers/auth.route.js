@@ -19,7 +19,7 @@ router.post("/signup", async (req, res) => {
       });
     }
 
-    return res.status(400).json({
+    return res.status(201).json({
       success: true,
       msg: "user created successfuly",
       data: newuser,
@@ -45,7 +45,7 @@ router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await Model.User.findOne({
-      where: { email: "example@example.com" },
+      where: { email: email },
     });
     if (!user) {
       return res.status(400).json({
@@ -53,14 +53,22 @@ router.post("/login", async (req, res) => {
         msg: "incorrectos datos",
       });
     }
+    if(user.email !== email || user.password !== password){
+        return res.json({
+            success: false,
+            msg: "contraseña incorrecta"
+        })
+    }
     if(user.email === email && user.password === password){
         req.session.user = {
-            username: user.username,
-            isLoggedin : true
+          username: user.username,
+          email: user.email,
+          isLoggedin : true
         }
         return res.status(200).json({
           success: true,
           msg: "Login successfuly",
+          data: user,
         });
     }
   } catch (error) {
@@ -71,5 +79,12 @@ router.post("/login", async (req, res) => {
   }
 });
 // logout
+router.post("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) return res.status(500).send("Error al cerrar sesión");
+    res.clearCookie('connect.sid'); // Nombre por defecto de la cookie de sesión
+    res.send("Sesión cerrada");
+  });
+});
 
 module.exports = router;
